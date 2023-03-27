@@ -1,0 +1,34 @@
+{
+    "name": "Saved Search to Google Sheet",
+    "version": "1.0",
+    "description": "Uses OAuth to connect to Google's Spreadsheet API and sends saved search results from NetSuite to a new Google Sheet",
+    "author": "Rohan Gandhi",
+    "manifest_version": 2,
+    "browser_action": {
+      "default_popup": "background.html"
+    },
+    "background": {
+      "page": "background.html",
+      "persistent": false
+    },
+    "icons":{
+      "128": "Google_sheets_icon.png"
+    },
+    "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'",
+    "oauth2":{
+      "client_id": "774989595016-0phfcn2572m1gah46pfs5olpadtllmgl.apps.googleusercontent.com",
+      "scopes":["https://www.googleapis.com/auth/spreadsheets"]
+    },
+    "content_scripts": [
+      {
+        "all_frames": false,
+        "css": ["buttonOnPage.css"],
+        "js": [ "jquery-1.11.2.min.js", "jquery-ui.min.js", "response.js" ],
+        "matches": ["https://*.app.netsuite.com/app/common/search/searchresults.*"],
+        "run_at": "document_end"
+      }
+  ],
+    "permissions": [ "storage", "https://*.netsuite.com/*", "identity" ],
+    "web_accessible_resources": [ "NLUtil.jsp", "NLUtil.js", "NLAPI.jsp" ],
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg7EcnriN0IhJRW7tgvpUVQ8eT4Wy3zEv80qRl8lyartcjW7f/zCboRJrY7xL9TNWrWWOb0nMigG7/oqUNz4QkJOGFw+1Dp8NYukCm3gNU/QDIan3WECXDorqhjpeMQKxAgtQUGY2bTBKgEQvM8vsLAXAXiqGzAsiIq5hZH5fyZFY6TV2uHkql2y/p7B+1U3uxMCKzc1hFbd2TU4H7gcxhQTI06gW3aDeiG/RSS4xxqSGdju+u5J5D8V6xHv9zt2btLTiXw+Tb8ZBLwA21W6HWPeIxR0mPDFF6jazXrZYT6vAgb4uUC+Z/zGFgrvB3pSNn/dt2cp5YPGJ/23yyjwmgQIDAQAB"
+}
